@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Listado de Empleados</span>
+            <button class="btn btn-dark btn-lg float-end" routerLink="/create-empleado">Agregar</button>
+
+            <div *ngIf="loading" class="text-center mt-5" style="display: grid;">
+                <strong>Cargando datos...</strong>
+                <strong><div class="spinner-border" role="status"></div></strong>
+            </div>
+
+            <div *ngIf="!loading">
+                <h5 *ngIf="empleados.length <= 0" class="mt-5">No hay empleados registrados para mostrar</h5>
+                <table *ngIf="empleados.length > 0" class="table table-striped mt-5">
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Documento</th>
+                            <th>Salario</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let empleado of empleados">
+                            <td>{{ empleado.nombres }}</td>
+                            <td>{{ empleado.apellidos }}</td>
+                            <td>{{ empleado.cedula }}</td>
+                            <td>{{ empleado.salario | currency }}</td>
+                            <td>
+                                <i class="fa-solid fa-pen-to-square fa-lg text-info me-2" [routerLink]="['/update-empleado/', empleado.id]"></i>
+                                <i (click)="deleteEmpleado(empleado.id)" class="fa-solid fa-trash-can fa-lg text-danger"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
